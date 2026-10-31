@@ -1,0 +1,317 @@
+/* =========================================================
+   Onboard Buddy System Dashboard – Custom Stylesheet
+   Supplements Tailwind CSS with animations, custom components,
+   and styles that Tailwind utilities cannot cover alone.
+   ========================================================= */
+
+/* ---------- Base & Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #F8FAFC;
+  color: #1F2937;
+}
+
+/* ---------- Scrollbar Styling ---------- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: #D1D5DB transparent;
+}
+
+/* Navigation links – default state */
+.nav-link {
+  color: #6B7280;
+  position: relative;
+}
+.nav-link:hover {
+  background-color: #EFF6FF;
+  color: #2563EB;
+}
+.nav-link:hover .nav-icon { stroke: #2563EB; }
+
+/* Active nav link */
+.active-nav {
+  background-color: #EFF6FF;
+  color: #2563EB;
+  font-weight: 600;
+}
+.active-nav .nav-icon { stroke: #2563EB; }
+
+/* ---------- Welcome Banner Gradient ---------- */
+.welcome-banner {
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 60%, #3730A3 100%);
+}
+
+/* ---------- KPI Card Hover Lift ---------- */
+.kpi-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px 0 rgba(37, 99, 235, 0.10);
+}
+
+/* ---------- Task Item ---------- */
+.task-item {
+  border: 1px solid #F3F4F6;
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: #FFFFFF;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  animation: fadeSlideIn 0.22s ease both;
+}
+.task-item:hover {
+  border-color: #BFDBFE;
+  box-shadow: 0 2px 10px 0 rgba(37, 99, 235, 0.08);
+  transform: translateY(-1px);
+}
+.task-item.completed-task {
+  background-color: #F9FAFB;
+  border-color: #E5E7EB;
+}
+.task-item.completed-task .task-title-text {
+  text-decoration: line-through;
+  color: #9CA3AF;
+}
+
+/* Custom checkbox */
+.task-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #D1D5DB;
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  position: relative;
+}
+.task-checkbox:checked {
+  background-color: #10B981;
+  border-color: #10B981;
+}
+.task-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 8px;
+  height: 12px;
+  border: 2px solid white;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+.task-checkbox:hover:not(:checked) {
+  border-color: #2563EB;
+}
+.task-checkbox:focus { outline: none; }
+
+/* ---------- Filter Tabs ---------- */
+.filter-btn {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.active-filter {
+  background-color: #FFFFFF;
+  color: #2563EB;
+  font-weight: 600;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.08);
+}
+
+/* ---------- Priority Badges ---------- */
+.priority-high   { background-color: #FEF2F2; color: #DC2626; }
+.priority-medium { background-color: #FFFBEB; color: #D97706; }
+.priority-low    { background-color: #F0FDF4; color: #16A34A; }
+
+/* ---------- Category Badges ---------- */
+.cat-administrative { background-color: #EFF6FF; color: #1D4ED8; }
+.cat-academic       { background-color: #F5F3FF; color: #6D28D9; }
+.cat-social         { background-color: #FFF7ED; color: #C2410C; }
+.cat-technical      { background-color: #ECFDF5; color: #047857; }
+.cat-health         { background-color: #FFF1F2; color: #BE123C; }
+
+/* ---------- Schedule Items ---------- */
+.schedule-item {
+  display: flex;
+  gap: 16px;
+  padding: 14px 16px;
+  background: #FFFFFF;
+  border: 1px solid #F3F4F6;
+  border-radius: 14px;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+  animation: fadeSlideIn 0.22s ease both;
+}
+.schedule-item:hover {
+  border-color: #BFDBFE;
+  box-shadow: 0 2px 10px 0 rgba(37, 99, 235, 0.07);
+}
+.schedule-date-box {
+  min-width: 52px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: #EFF6FF;
+  color: #2563EB;
+}
+.schedule-date-box .day  { font-size: 20px; font-weight: 800; line-height: 1; }
+.schedule-date-box .month { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; }
+
+/* ---------- Progress Bars ---------- */
+.progress-bar-track {
+  width: 100%;
+  height: 10px;
+  background-color: #E5E7EB;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- Announcement Items ---------- */
+.announcement-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid #F3F4F6;
+  background-color: #FFFFFF;
+  transition: box-shadow 0.18s ease;
+  animation: fadeSlideIn 0.22s ease both;
+}
+.announcement-item.unread {
+  border-color: #BFDBFE;
+  background-color: #F0F7FF;
+}
+.announcement-item:hover {
+  box-shadow: 0 2px 10px 0 rgba(37, 99, 235, 0.08);
+}
+.announcement-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2563EB;
+  margin-top: 5px;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+.announcement-item.read .announcement-dot {
+  background-color: #D1D5DB;
+}
+
+/* ---------- Modal ---------- */
+@keyframes modalOpen {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-modal {
+  animation: modalOpen 0.2s ease both;
+}
+
+/* ---------- Toast ---------- */
+.toast-show {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.section-content {
+  animation: fadeIn 0.25s ease both;
+}
+
+/* ---------- Recent Tasks (Dashboard Snapshot) ---------- */
+.recent-task-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #F3F4F6;
+  transition: background-color 0.15s ease;
+  animation: fadeSlideIn 0.22s ease both;
+}
+.recent-task-row:hover { background-color: #F9FAFB; }
+
+/* ---------- Responsive: Mobile sidebar open state ---------- */
+@media (max-width: 1023px) {
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+}
+
+/* ---------- Action Buttons in Task Items ---------- */
+.task-action-btn {
+  padding: 5px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.task-action-btn:hover { background-color: #F3F4F6; }
+.task-action-btn.edit-btn:hover  { color: #2563EB; background-color: #EFF6FF; }
+.task-action-btn.delete-btn:hover { color: #EF4444; background-color: #FEF2F2; }
+
+/* ---------- Deadline overdue ---------- */
+.deadline-overdue { color: #DC2626 !important; }
+.deadline-soon    { color: #D97706 !important; }
+
+/* ---------- Section hiding ---------- */
+.section-content.hidden { display: none; }
+
+/* ---------- Input focus glow ---------- */
+input:focus, select:focus, textarea:focus {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* ---------- Utility: Font weight 700 class via Tailwind extend ---------- */
+.font-700 { font-weight: 700; }
+
+/* ---------- Progress ring smooth ---------- */
+#progressRingCircle {
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- Category progress item ---------- */
+.cat-progress-item {
+  animation: fadeSlideIn 0.3s ease both;
+}
+
+/* ---------- Ensure w-4.5/h-4.5 works via custom CSS ---------- */
+.w-4\.5 { width: 1.125rem; }
+.h-4\.5 { height: 1.125rem; }
